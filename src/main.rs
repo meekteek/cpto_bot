@@ -2,7 +2,7 @@ use std::fmt;
 
 use reqwest;
 use serde::{Deserialize, Serialize};
-use serde_json::{self, Value};
+use serde_json;
 use tokio;
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -49,10 +49,8 @@ where
 // get the bid/ask values of kraken OB
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Set up the client. You could add headers like User-Agent if needed.
     let client = reqwest::Client::new();
 
-    // Make a request to the Coinbase API for the BTC-USD order book.
     let response_text = client
         .get("https://api.kraken.com/0/public/Ticker")
         .query(&[("pair", "XBTUSD")])
